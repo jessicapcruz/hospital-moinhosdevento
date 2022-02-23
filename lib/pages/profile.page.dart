@@ -15,7 +15,7 @@ class ProfilePage extends StatelessWidget {
               alignment: Alignment(0.0, 1.15),
               decoration: new BoxDecoration(
                 image: new DecorationImage(
-                  image: AssetImage("assets/profile-picture.png"),
+                  image: AssetImage("profile-picture.png"),
                   fit: BoxFit.fitHeight,
                 ),
               ),

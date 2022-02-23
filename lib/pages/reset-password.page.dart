@@ -27,7 +27,7 @@ class ResetPasswordPage extends StatelessWidget {
                       SizedBox(
                         width: 200,
                         height: 200,
-                        child: Image.asset("assets/reset-password-icon.png"),
+                        child: Image.asset("reset-password-icon.png"),
                       ),
                       SizedBox(
                         height: 20,

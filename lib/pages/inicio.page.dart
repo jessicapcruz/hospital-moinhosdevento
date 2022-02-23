@@ -38,7 +38,7 @@ Widget profileItem() {
     child: Center(
       child: Column(
         children: <Widget>[
-          Image.asset("assets/user-picture.png"),
+          Image.asset("user-picture.png"),
           Text('Nome do paciente'),
           Text('ID do paciente')
         ],
