@@ -12,7 +12,7 @@ class _HomeScreenState  extends State<HomeScreen> {
   final List<Tuple2> _pages = [
     Tuple2('Inicio', InicioPage()),
     Tuple2('Emergência', EmergenciaPage()),
-    Tuple2('Emergência', ProfilePage()),
+    Tuple2('Perfil', ProfilePage()),
   ];
   int _selectedPage = 0;
   PageController _pageController = PageController();

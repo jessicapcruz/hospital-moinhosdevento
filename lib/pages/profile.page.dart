@@ -1,8 +1,38 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatelessWidget {
+import '../models/user/user.dart';
+import '../providers/UserProvider.dart';
+import '../requests/userRequest.dart';
+
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage>  {
+  late User user; //instantiate a user
+  late List< User> followers; // instantiate
+
+
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      //this function gets a user from the username supplied in the input
+      //  user = Provider.of<UserProvider>(context).getUser();
+
+      // this method returns followers of the username supplied in the input as a list
+      //using the UserProvider
+      UserRequest('teste').fetchFollowers().then((following) {
+        Iterable list = json.decode(following.body);
+        setState(() {
+          followers = list.map((e) => User.fromJson(e)).toList();
+        });
+      });
+    });
+
+
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(top: 10, left: 40, right: 40),
@@ -107,5 +137,11 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
   }
 }

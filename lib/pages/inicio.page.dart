@@ -1,4 +1,10 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:hospitalmoinhosdevento/pages/prontoAtendimento.page.dart';
+import 'package:hospitalmoinhosdevento/pages/unidades.page.dart';
+
+import 'emergencia.page.dart';
 
 class InicioPage extends StatelessWidget {
 
@@ -7,10 +13,18 @@ class InicioPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         color: Color(0xFFF2F3F6),
+
         child: ListView(
           children: <Widget>[
             profileItem(),
-            formularioEmergencia ()
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children:<Widget>[
+                  formularioEmergencia (context),
+                  unidades(context),
+                  prontoAtendimento(context)
+                ]
+            ),
           ],
         ),
       ),
@@ -19,19 +33,71 @@ class InicioPage extends StatelessWidget {
 }
 
 
-Widget formularioEmergencia (){
+Widget formularioEmergencia (BuildContext context){
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
       IconButton(
         icon: const Icon(Icons.assignment_outlined ),
         tooltip: 'Formulario de emergência',
-        iconSize:80, onPressed: () {  },
+        iconSize:80,
+          onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EmergenciaPage(),
+          ),
+        );
+      },
       ),
       Text('Emergência')
     ],
   );
 }
+
+Widget unidades (BuildContext context){
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      IconButton(
+        icon: const Icon(Icons.business_outlined ),
+        tooltip: 'Unidades',
+        iconSize:80,           onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => UnidadesPage(),
+          ),
+        );
+      },
+      ),
+      Text('Unidades')
+    ],
+  );
+}
+
+Widget prontoAtendimento (BuildContext context){
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      IconButton(
+        icon: const Icon(Icons.business_outlined ),
+        tooltip: 'Pronto Atendimento',
+        iconSize:80,           onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProntoAtendimentoPage(),
+          ),
+        );
+      },
+      ),
+      Text('Pronto Atendimento')
+    ],
+  );
+}
+
+
 Widget profileItem() {
   return Container(
     padding: EdgeInsets.all(10.0),
@@ -46,56 +112,5 @@ Widget profileItem() {
     ),
   );
 }
-Widget cardItem() {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      IconButton(
-        icon: const Icon(Icons.assignment_outlined ),
-        tooltip: 'Formulario de emergência',
-        iconSize:80, onPressed: () {  },
-      ),
-      Text('Emergência')
-    ],
-  );}
 
-Widget cardItem1() {
-  return Card(
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        //const ListTile(
-        //leading: CircleAvatar(
-        //backgroundImage: NetworkImage(
-        //  "https://baltaio.blob.core.windows.net/student-images/1edd5c50-bae9-11e8-8eb4-39de303632c1.jpg"),
-        //),
-        //title: Text("Bruce Wayne"),
-        //subtitle: Text("09/05/2019 18:37"),
-        //trailing: Icon(Icons.more_vert),
-        //  ),
-        Container(
-          child: Image.asset("assets/user-picture.png"),
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          child: Text(
-              "Questionario de emergencia"),
-        ),
-        ButtonTheme(
-          child: ButtonBar(
-            children: <Widget>[
-              FlatButton(
-                child: Icon(Icons.favorite),
-                onPressed: () {},
-              ),
-              FlatButton(
-                child: Icon(Icons.share),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
+
