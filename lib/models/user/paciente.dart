@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class Paciente {
-  final int id;
+  final int?id;
   final String nome_completo;
   final String nome_mae;
   final String cpf;
@@ -10,7 +10,7 @@ class Paciente {
   final String email;
 
   Paciente({
-    required this.id,
+    this.id,
     required this.nome_completo,
     required this.nome_mae,
     required this.cpf,

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 //Github request class
 class PacienteRequest {
-  final int idUsuario;
+  final int? idUsuario;
   //final String url = 'http://challenge-fiap-api-paciente.sa-east-1.elasticbeanstalk.com/';
   final String url = 'http://jsonplaceholder.typicode.com/users/1';
 

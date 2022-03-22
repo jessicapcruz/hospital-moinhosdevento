@@ -1,7 +1,18 @@
 
 import 'package:flutter/material.dart';
 
+import '../../models/user/paciente.dart';
+import '../../requests/paciente/pacienteRequest.dart';
+
 class SignupPage extends StatelessWidget {
+  String nome_completo = "";
+  String nome_mae = "";
+  String cpf = "";
+  String endereco = "";
+  String telefone = "";
+  String email = "";
+  String senha = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,8 +25,8 @@ class SignupPage extends StatelessWidget {
               width: 200,
               height: 200,
               alignment: Alignment(0.0, 1.15),
-              decoration: new BoxDecoration(
-                image: new DecorationImage(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
                   image: AssetImage("profile-picture.png"),
                   fit: BoxFit.fitHeight,
                 ),
@@ -25,7 +36,7 @@ class SignupPage extends StatelessWidget {
                 width: 56,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     stops: [0.3, 1.0],
@@ -38,13 +49,13 @@ class SignupPage extends StatelessWidget {
                     width: 4.0,
                     color: const Color(0xFFFFFFFF),
                   ),
-                  borderRadius: BorderRadius.all(
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(56),
                   ),
                 ),
                 child: SizedBox.expand(
                   child: FlatButton(
-                    child: Icon(
+                    child: const Icon(
                       Icons.add,
                       color: Colors.white,
                     ),
@@ -53,13 +64,16 @@ class SignupPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFormField(
               // autofocus: true,
+              onChanged: (text) {
+                nome_completo = text;
+              },
               keyboardType: TextInputType.text,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Nome",
                 labelStyle: TextStyle(
                   color: Colors.black38,
@@ -67,17 +81,92 @@ class SignupPage extends StatelessWidget {
                   fontSize: 20,
                 ),
               ),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
               ),
             ),
-            SizedBox(
-              height: 10,
+            TextFormField(
+              // autofocus: true,
+              onChanged: (text) {
+                nome_mae = text;
+              },
+              keyboardType: TextInputType.text,
+              decoration: const InputDecoration(
+                labelText: "Nome da mãe",
+                labelStyle: TextStyle(
+                  color: Colors.black38,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                ),
+              ),
+              style: const TextStyle(
+                fontSize: 20,
+              ),
             ),
             TextFormField(
               // autofocus: true,
+              onChanged: (text) {
+                cpf = text;
+              },
+              keyboardType: TextInputType.text,
+              decoration: const InputDecoration(
+                labelText: "CPF",
+                labelStyle: TextStyle(
+                  color: Colors.black38,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                ),
+              ),
+              style: const TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            TextFormField(
+              // autofocus: true,
+              onChanged: (text) {
+                endereco = text;
+              },
+              keyboardType: TextInputType.text,
+              decoration: const InputDecoration(
+                labelText: "Endereço",
+                labelStyle: TextStyle(
+                  color: Colors.black38,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                ),
+              ),
+              style: const TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            TextFormField(
+              // autofocus: true,
+              onChanged: (text) {
+                telefone = text;
+              },
+              keyboardType: TextInputType.text,
+              decoration: const InputDecoration(
+                labelText: "Telefone",
+                labelStyle: TextStyle(
+                  color: Colors.black38,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                ),
+              ),
+              style: const TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              onChanged: (text) {
+                email = text;
+              },
+              // autofocus: true,
               keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "E-mail",
                 labelStyle: TextStyle(
                   color: Colors.black38,
@@ -85,18 +174,21 @@ class SignupPage extends StatelessWidget {
                   fontSize: 20,
                 ),
               ),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFormField(
+              onChanged: (text) {
+                senha = text;
+              },
               // autofocus: true,
               keyboardType: TextInputType.text,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Senha",
                 labelStyle: TextStyle(
                   color: Colors.black38,
@@ -104,15 +196,15 @@ class SignupPage extends StatelessWidget {
                   fontSize: 20,
                 ),
               ),
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
               height: 60,
               alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -128,7 +220,7 @@ class SignupPage extends StatelessWidget {
               ),
               child: SizedBox.expand(
                 child: FlatButton(
-                  child: Text(
+                  child: const Text(
                     "Cadastrar",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -137,18 +229,31 @@ class SignupPage extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                      Paciente novoPaciente = Paciente(
+                          id:null ,
+                          nome_completo:nome_completo ,
+                          nome_mae:nome_mae ,
+                          cpf:cpf ,
+                          endereco:endereco ,
+                          telefone:telefone ,
+                          email:email
+                      );
+
+                      Paciente p = await PacienteRequest(null).createPost(
+                          body: novoPaciente.toMap());
+                    },
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
               height: 40,
               alignment: Alignment.center,
               child: FlatButton(
-                child: Text(
+                child: const Text(
                   "Cancelar",
                   textAlign: TextAlign.center,
                 ),

@@ -93,7 +93,7 @@ class _editProfilePageState extends State<editProfilePage> {
                         nome_mae:data.nome_mae ,
                         cpf:data.cpf ,
                         endereco:enderecoNovo ,
-                        telefone:data.email ,
+                        telefone:data.telefone ,
                         email:emailNovo
                         );
 
