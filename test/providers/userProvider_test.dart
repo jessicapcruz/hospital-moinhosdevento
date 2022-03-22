@@ -1,4 +1,3 @@
-// Import the test package and Counter class
 import 'package:hospitalmoinhosdevento/models/user/paciente.dart';
 import 'package:hospitalmoinhosdevento/providers/UserProvider.dart';
 import 'package:test/test.dart';
