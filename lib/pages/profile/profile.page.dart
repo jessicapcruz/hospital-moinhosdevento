@@ -246,9 +246,3 @@ class _ProfilePageState extends State<ProfilePage>  {
 }
 
 
-@override
-State<StatefulWidget> createState() {
-  // TODO: implement createState
-  throw UnimplementedError();
-}
-

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../models/questionario/pergunta.dart';
 import '../../models/user/paciente.dart';
+import '../../scoped_models/main.dart';
 import '../home/inicio.page.dart';
 import '../profile/profile.page.dart';
 
@@ -28,11 +30,15 @@ class _QuestionarioPageState extends State<QuestionarioPage> {
 
   @override
   Widget build(BuildContext context) {
-      return Container(
-          padding: EdgeInsets.all(5),
-          child: const Text('* Este questionario tem o objetivo de avaliar o diagnostico prévio, com base em seus sintomas e inclui-lo na fila de atendimento.',
-            textAlign: TextAlign.left,
-          ),
-      );
+    return ScopedModelDescendant<MainModel>(
+        builder: (BuildContext context, Widget child, MainModel model) {
+          return Container(
+            padding: EdgeInsets.all(5),
+            child: const Text(
+              '* Este questionario tem o objetivo de avaliar o diagnostico prévio, com base em seus sintomas e inclui-lo na fila de atendimento.',
+              textAlign: TextAlign.left,
+            ),
+          );
+    });
   }
 }

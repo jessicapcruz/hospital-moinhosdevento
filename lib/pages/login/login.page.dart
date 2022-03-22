@@ -113,6 +113,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       onPressed: () {
                         model.setIdUsuario(1);
+                        model.setName('Fernando');
                         Navigator.push(
                           context,
                           MaterialPageRoute(

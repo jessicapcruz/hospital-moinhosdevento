@@ -3,33 +3,38 @@ import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:hospitalmoinhosdevento/pages/atendimento/prontoAtendimento.page.dart';
 import 'package:hospitalmoinhosdevento/pages/unidades/unidades.page.dart';
+import 'package:scoped_model/scoped_model.dart';
 
+import '../../scoped_models/main.dart';
 import '../emergencia/emergencia.page.dart';
 
 class InicioPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.white,
+    return ScopedModelDescendant<MainModel>(
+        builder: (BuildContext context, Widget child, MainModel model) {
+          return Scaffold(
+            body: Container(
+              color: Colors.white,
 
-        child: ListView(
-          children: <Widget>[
-            profileItem(),
+              child: ListView(
+                children: <Widget>[
+                  profileItem(model.idPaciente, model.name),
 
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children:<Widget>[
-                  formularioEmergencia (context),
-                  unidades(context),
-                  prontoAtendimento(context)
-                ]
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        formularioEmergencia(context),
+                        unidades(context),
+                        //prontoAtendimento(context)
+                      ]
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
+    });
   }
 }
 
@@ -99,15 +104,15 @@ Widget prontoAtendimento (BuildContext context){
 }
 
 
-Widget profileItem() {
+Widget profileItem(int idPaciente, String name) {
   return Container(
     padding: EdgeInsets.all(10.0),
     child: Center(
       child: Column(
         children: <Widget>[
           Image.asset("user-picture.png"),
-          Text('Nome do paciente'),
-          Text('ID do paciente')
+          Text(name),
+          Text(idPaciente.toString())
         ],
       ),
     ),
