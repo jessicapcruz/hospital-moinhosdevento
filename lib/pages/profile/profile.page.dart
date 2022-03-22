@@ -65,6 +65,7 @@ class _ProfilePageState extends State<ProfilePage>  {
     return ScopedModelDescendant<MainModel>(
         builder: (BuildContext context, Widget child, MainModel model) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             home: Scaffold(
               body: FutureBuilder<Paciente>(
                 future: futurePaciente,
