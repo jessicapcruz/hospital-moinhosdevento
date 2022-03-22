@@ -1,27 +1,37 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
-import 'package:hospitalmoinhosdevento/pages/profile.page.dart';
-import 'emergencia.page.dart';
-import 'inicio.page.dart';
+import 'package:hospitalmoinhosdevento/pages/atendimento/prontoAtendimento.page.dart';
+import 'package:hospitalmoinhosdevento/pages/unidades/unidades.page.dart';
 import 'package:tuple/tuple.dart';
-class HomeScreen  extends StatefulWidget {
+
+import '../emergencia/emergencia.page.dart';
+import '../home/inicio.page.dart';
+import '../profile/profile.page.dart';
+import 'listaUnidades.page.dart';
+
+class UnidadesPage  extends StatefulWidget {
+
   @override
-  _HomeScreenState  createState() => _HomeScreenState ();
+  _UnidadesPageState  createState() => _UnidadesPageState ();
 }
 
-class _HomeScreenState  extends State<HomeScreen> {
+
+class _UnidadesPageState extends State<UnidadesPage> {
   final List<Tuple2> _pages = [
     Tuple2('Inicio', InicioPage()),
-    Tuple2('Emergência', EmergenciaPage()),
+    Tuple2('Emergência', EmergenciaPage(showBottomNav: false)),
     Tuple2('Perfil', ProfilePage()),
   ];
   int _selectedPage = 0;
   PageController _pageController = PageController();
-
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
+        title: Text('Unidades'),
         actions: <Widget>[
           Container(
             width: 60,
@@ -36,13 +46,7 @@ class _HomeScreenState  extends State<HomeScreen> {
         ],
       ),
       body: PageView(
-        children: _pages.map<Widget>((Tuple2 page) => page.item2).toList(),
-        onPageChanged: (index) {
-          setState(() {
-            _selectedPage = index;
-          });
-        },
-        controller: _pageController,
+        children: [ListaUnidadesPage()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -75,7 +79,11 @@ class _HomeScreenState  extends State<HomeScreen> {
         },
       ),
     );
+
+
   }
 }
+
+
 
 

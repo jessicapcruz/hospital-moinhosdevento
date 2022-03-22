@@ -1,10 +1,10 @@
 import 'dart:js';
 
 import 'package:flutter/material.dart';
-import 'package:hospitalmoinhosdevento/pages/prontoAtendimento.page.dart';
-import 'package:hospitalmoinhosdevento/pages/unidades.page.dart';
+import 'package:hospitalmoinhosdevento/pages/atendimento/prontoAtendimento.page.dart';
+import 'package:hospitalmoinhosdevento/pages/unidades/unidades.page.dart';
 
-import 'emergencia.page.dart';
+import '../emergencia/emergencia.page.dart';
 
 class InicioPage extends StatelessWidget {
 
@@ -12,11 +12,12 @@ class InicioPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color(0xFFF2F3F6),
+        color: Colors.white,
 
         child: ListView(
           children: <Widget>[
             profileItem(),
+
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children:<Widget>[
@@ -45,7 +46,7 @@ Widget formularioEmergencia (BuildContext context){
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EmergenciaPage(),
+            builder: (context) => EmergenciaPage(showBottomNav: true),
           ),
         );
       },

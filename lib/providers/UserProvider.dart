@@ -2,22 +2,22 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 
-import '../models/user/user.dart';
-import '../requests/userRequest.dart';
+import '../models/user/paciente.dart';
+import '../requests/paciente/pacienteRequest.dart';
 
 class UserProvider with ChangeNotifier {
-  late User user; //an instance of a user
+  late Paciente paciente; //an instance of a user
   late String errorMessage; //error message
   bool loading = false; //loading the page
 
   Future<bool> fetchUser(username) async {
     setLoading(true);
     // fetch user from the input supplied in the form
-    await UserRequest(username).fetchUser().then((data) {
+    await (username).fetchUser().then((data) {
       setLoading(false);
       if (data.statusCode == 200) {
         //incase of success
-        setUser(User.fromJson(json.decode(data.body)));
+        setUser(Paciente.fromJson(json.decode(data.body)));
       } else {
         Map<String, dynamic> result = json.decode(data.body);
         setMessage(result['message']); // error message
@@ -36,12 +36,12 @@ class UserProvider with ChangeNotifier {
   }
 
   void setUser(value) {
-    user = value;
+    paciente = value;
     notifyListeners(); //alert listeners that user's value changed
   }
 
-  User getUser() {
-    return user; //returns the fetched user
+  Paciente getUser() {
+    return paciente; //returns the fetched user
   }
 
   void setMessage(value) {
@@ -54,6 +54,6 @@ class UserProvider with ChangeNotifier {
   }
 
   bool isUser() {
-    return user != null ? true : false; // returns true if user is not null, anf false otherwise
+    return paciente != null ? true : false; // returns true if user is not null, anf false otherwise
   }
 }
