@@ -5,6 +5,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../../models/user/paciente.dart';
 import '../../requests/paciente/pacienteRequest.dart';
 import '../../scoped_models/main.dart';
+import '../home/home.page.dart';
 
 class editProfilePage extends StatefulWidget {
   editProfilePage({required this.dados});
@@ -25,7 +26,6 @@ class _editProfilePageState extends State<editProfilePage> {
   @override
   void initState(){
     super.initState();
-    debugPrint('editDialog');
   }
   final ButtonStyle style =
   ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
@@ -38,8 +38,7 @@ class _editProfilePageState extends State<editProfilePage> {
     }
 
     return ScopedModelDescendant<MainModel>(
-        builder: (BuildContext context, Widget child, MainModel model)
-    {
+        builder: (BuildContext context, Widget child, MainModel model) {
       return Container(
           padding: EdgeInsets.only(top: 60, left: 40, right: 40),
           color: Colors.white,
@@ -49,7 +48,7 @@ class _editProfilePageState extends State<editProfilePage> {
               SizedBox(
                 width: 128,
                 height: 128,
-                child: Image.asset("app-logo.png"),
+                child: Image.asset("assets/images/app-logo.png"),
               ),
               const ListTile(
                 leading: Icon(Icons.create_outlined),
@@ -69,38 +68,78 @@ class _editProfilePageState extends State<editProfilePage> {
                   emailNovo = text;
                 },
               ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                style: style,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProfilePage(),
-                    ),
-                  );
-                },
-                child: const Text('Cancelar'),
+              const SizedBox(height: 10),
+              Container(
+                  height: 60,
+                  alignment: Alignment.centerLeft,
+                  decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0.3, 1],
+                  colors: [
+                  Color(0xFF0277BD),
+                  Color(0XFF01579B),
+                ],
               ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                style: style,
-                onPressed: () async {
-                  widget.dados.then((Paciente data) async {
-                     Paciente updatePaciente = new Paciente(
-                        id:data.id ,
-                        nome_completo:data.nome_completo ,
-                        nome_mae:data.nome_mae ,
-                        cpf:data.cpf ,
-                        endereco:enderecoNovo ,
-                        telefone:data.telefone ,
-                        email:emailNovo
-                        );
+              borderRadius: BorderRadius.all(
+                Radius.circular(5),
+              ),
+              ),
+              child: SizedBox.expand(
+              child: FlatButton(
+                    child: const Text(
+                      "Salvar",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    onPressed: () async {
+                      widget.dados.then((Paciente data) async {
+                         Paciente updatePaciente = Paciente(
+                             paciente_id:data.paciente_id ,
+                            nome_completo:data.nome_completo ,
+                            data_nascimento:data.data_nascimento,
+                            nome_mae:data.nome_mae ,
+                            cpf:data.cpf ,
+                            endereco:enderecoNovo ,
+                            telefone:data.telefone ,
+                            email:emailNovo
+                            );
+                         try {
+                           await PacienteRequest(model.idPaciente).updatePaciente(
+                               updatePaciente);
+                           alertDialog(context, "Concluido", "Informações alteradas com sucesso!");
+                         } catch (e) {
+                           alertDialog(context, "Desculpe, ocorreu um erro ao gravar as informações!", " Por favor, tente novamente mais tarde.");
+                         }
+                        // Paciente p = await PacienteRequest(model.idPaciente).createPost(
+                            // body: updatePaciente.toMap());
+                      });},
+                  ),),
+              ),
 
-                     Paciente p = await PacienteRequest(model.idPaciente).createPost(
-                         body: updatePaciente.toMap());
-                  });},
-                child: const Text('Salvar'),
+              const SizedBox(height: 10),
+              Container(
+                  height: 40,
+                  alignment: Alignment.center,
+                  child: FlatButton(
+                      child: const Text(
+                        "Cancelar",
+                        textAlign: TextAlign.center,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfilePage(),
+                          ),
+                        );
+                      }
+                  )
               ),
             ],
           )
@@ -108,6 +147,29 @@ class _editProfilePageState extends State<editProfilePage> {
     });
   }
 
+  Future alertDialog( BuildContext context, String title, String message) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          );
+        });
+  }
   @override
   Widget build(BuildContext context) {
     return _getContent();

@@ -84,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage>  {
                                 alignment: const Alignment(0.0, 1.15),
                                 decoration: const BoxDecoration(
                                   image: DecorationImage(
-                                    image: AssetImage("profile-picture.png"),
+                                    image: AssetImage("assets/images/profile-picture.png"),
                                     fit: BoxFit.fitHeight,
                                   ),
                                 ),

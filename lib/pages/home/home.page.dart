@@ -11,22 +11,29 @@ class HomeScreen  extends StatefulWidget {
 class _HomeScreenState  extends State<HomeScreen> {
   final List<Tuple2> _pages = [
     Tuple2('Inicio', InicioPage()),
-    Tuple2('Emergência', EmergenciaPage(showBottomNav: false)),
+    const Tuple2('Emergência', EmergenciaPage(showBottomNav: false, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:"")),
     Tuple2('Perfil', ProfilePage()),
   ];
   int _selectedPage = 0;
   PageController _pageController = PageController();
-
+  void _onBackPressed() {
+    // Called when the user either presses the back arrow in the AppBar or
+    // the dedicated back button.
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: _onBackPressed,
+        ),
         actions: <Widget>[
           Container(
             width: 60,
             child: FlatButton(
-              child: Icon(
+              child: const Icon(
                 Icons.search,
                 color: Color(0xFFBABABA),
               ),
@@ -70,7 +77,7 @@ class _HomeScreenState  extends State<HomeScreen> {
           setState(() {
             _selectedPage = index;
             _pageController.animateToPage(_selectedPage,
-                duration: Duration(milliseconds: 300), curve: Curves.linear);
+                duration: const Duration(milliseconds: 300), curve: Curves.linear);
           });
         },
       ),

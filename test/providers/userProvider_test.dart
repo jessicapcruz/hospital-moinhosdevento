@@ -21,7 +21,7 @@ void main() {
 
   test('Atualiza paciente', () {
     final main = UserProvider();
-    Paciente paciente = Paciente(id: 1,
+    Paciente paciente = Paciente(paciente_id: 1,
         nome_completo: 'nome',
         nome_mae: 'nome_mae',
         cpf: 'cpf',

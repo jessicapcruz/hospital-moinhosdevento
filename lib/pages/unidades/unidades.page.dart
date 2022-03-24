@@ -1,10 +1,5 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
-import 'package:hospitalmoinhosdevento/pages/atendimento/prontoAtendimento.page.dart';
-import 'package:hospitalmoinhosdevento/pages/unidades/unidades.page.dart';
 import 'package:tuple/tuple.dart';
-
 import '../emergencia/emergencia.page.dart';
 import '../home/inicio.page.dart';
 import '../profile/profile.page.dart';
@@ -20,7 +15,7 @@ class UnidadesPage  extends StatefulWidget {
 class _UnidadesPageState extends State<UnidadesPage> {
   final List<Tuple2> _pages = [
     Tuple2('Inicio', InicioPage()),
-    Tuple2('Emergência', EmergenciaPage(showBottomNav: false)),
+    const Tuple2('Emergência', EmergenciaPage(showBottomNav: false, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:"")),
     Tuple2('Perfil', ProfilePage()),
   ];
   int _selectedPage = 0;
@@ -31,7 +26,7 @@ class _UnidadesPageState extends State<UnidadesPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text('Unidades'),
+        title: const Text('Unidades'),
         actions: <Widget>[
           Container(
             width: 60,
@@ -46,7 +41,7 @@ class _UnidadesPageState extends State<UnidadesPage> {
         ],
       ),
       body: PageView(
-        children: [ListaUnidadesPage()],
+        children: const [ListaUnidadesPage()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -74,7 +69,7 @@ class _UnidadesPageState extends State<UnidadesPage> {
           setState(() {
             _selectedPage = index;
             _pageController.animateToPage(_selectedPage,
-                duration: Duration(milliseconds: 300), curve: Curves.linear);
+                duration: const Duration(milliseconds: 300), curve: Curves.linear);
           });
         },
       ),

@@ -10,15 +10,17 @@ class QuestionarioRequest {
   final int idPaciente; // usernaname
   final int idPergunta;
   final int idReposta;
+  final String dataEnvio;
   final int pesoResposta = 0;
-  //final String url = 'http://challenge-fiap-api-paciente.sa-east-1.elasticbeanstalk.com/paciente/1';
-  final String url = 'http://jsonplaceholder.typicode.com/users/1';
+  final String url = 'http://challengefiapquestionarioacessoapi-env.eba-kedv2ypx.sa-east-1.elasticbeanstalk.com/';
+
+  //final String url = 'http://jsonplaceholder.typicode.com/users/1';
 
   static String clientId = 'CLIENT_ID'; //enter yout client id
   static String clientSecret = 'CLIENT_SECRET'; // insert your client secret
   String ? body = null;
 
-  QuestionarioRequest(this.idPaciente, this.idPergunta, this.idReposta);
+  QuestionarioRequest(this.idPaciente, this.idPergunta, this.idReposta, this.dataEnvio);
 
   //Fetch a user with the username supplied in the form input
   Future<http.Response> fetchUser() {
@@ -37,9 +39,21 @@ class QuestionarioRequest {
     }
   }
 
-  Future<Pergunta> getPergunta(Map<String, String> body) async {
+  Future<Pergunta> getPergunta() async {
+
     final response =
-    await http.get(Uri.parse('http://jsonplaceholder.typicode.com/users/1'), headers: body);
+    await http.post(Uri.parse(url + 'questionario/enviar'),
+        body:  json.encode({
+          "pacienteID": idPaciente,
+          "dataEnvio": dataEnvio,
+          "perguntaID": idPergunta,
+          "respostaID":idReposta,
+          "respostaPeso": 0,
+        }),headers: {
+          "Accept": "application/json",
+          "content-type":"application/json"
+        }
+    );
 
     if (response.statusCode == 200) {
       return Pergunta.fromJson(jsonDecode(response.body));

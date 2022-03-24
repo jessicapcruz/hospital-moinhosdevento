@@ -12,7 +12,7 @@ class SignupPage extends StatelessWidget {
   String telefone = "";
   String email = "";
   String senha = "";
-
+  String? data_nascimento = null ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -231,8 +231,9 @@ class SignupPage extends StatelessWidget {
                   ),
                   onPressed: () async {
                       Paciente novoPaciente = Paciente(
-                          id:null ,
+                          paciente_id:null ,
                           nome_completo:nome_completo ,
+                          data_nascimento:data_nascimento,
                           nome_mae:nome_mae ,
                           cpf:cpf ,
                           endereco:endereco ,

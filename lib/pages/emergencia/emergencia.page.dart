@@ -8,9 +8,14 @@ import '../home/inicio.page.dart';
 import '../profile/profile.page.dart';
 
 class EmergenciaPage  extends StatefulWidget {
-  EmergenciaPage({Key? key, required this.showBottomNav}) : super(key: key);
+  //EmergenciaPage({Key? key, required this.showBottomNav, required this.idPaciente, required this.idPergunta, required this.idReposta}) : super(key: key);
+  const EmergenciaPage({required this.showBottomNav, required this.idPergunta, required this.idRespota, required this.idPaciente, required this.dataEnvio, Key? key, }) : super(key: key);
   final bool showBottomNav;
 
+  final int idPergunta;
+  final int idRespota;
+  final int idPaciente;
+  final String dataEnvio;
 
   @override
   _EmergenciaPageState  createState() => _EmergenciaPageState ();
@@ -20,20 +25,50 @@ class EmergenciaPage  extends StatefulWidget {
 class _EmergenciaPageState extends State<EmergenciaPage> {
   final List<Tuple2> _pages = [
     Tuple2('Inicio', InicioPage()),
-    Tuple2('Emergência', EmergenciaPage(showBottomNav: false)),
+    const Tuple2('Emergência', EmergenciaPage(showBottomNav: false, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:"")),
     Tuple2('Perfil', ProfilePage()),
   ];
-
+  var _scrollController = ScrollController();
 
   int _selectedPage = 0;
   PageController _pageController = PageController();
+  late int _idPaciente = 0;
+  late int _idPergunta = 0;
+  late int _idReposta = 0;
+  late String _dataEnvio = "";
+
+
+  set idPaciente(int value) {
+    _idPaciente = value;
+  }
+
+  set idPergunta(int value) {
+    _idPergunta = value;
+  }
+
+  set idReposta(int value) {
+    _idReposta = value;
+  }
+  set dataEnvio(String value) {
+    _dataEnvio = value;
+  }
+  int get idPaciente => _idPaciente;
+  int get idPergunta => _idPergunta;
+  int get idReposta => _idReposta;
+  String get dataEnvio => _dataEnvio;
 
 
   @override
+  void initState() {
+    super.initState();
+    print(_pageController.hasClients);
+   // _pageController.hasClients ? _pageController.page!(1) : _pageController.initialPage;
+  }
+  @override
   Widget build(BuildContext context) {
+
     return ScopedModelDescendant<MainModel>(
-        builder: (BuildContext context, Widget child, MainModel model)
-    {
+        builder: (BuildContext context, Widget child, MainModel model) {
       if (widget.showBottomNav == true) {
         return Scaffold(
           appBar: AppBar(
@@ -53,7 +88,7 @@ class _EmergenciaPageState extends State<EmergenciaPage> {
             ],
           ),
           body: PageView(
-            children: [QuestionarioPage()],
+            children: [QuestionarioPage(idPaciente: idPaciente, idPergunta: idPergunta, idRespota: idReposta, dataEnvio: dataEnvio)],
           ),
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
@@ -89,7 +124,7 @@ class _EmergenciaPageState extends State<EmergenciaPage> {
         );
       } else {
         return Container(
-            child: QuestionarioPage()
+            child: QuestionarioPage(idPaciente: idPaciente, idPergunta: idPergunta, idRespota: idReposta, dataEnvio: dataEnvio)
         );
       }
     });

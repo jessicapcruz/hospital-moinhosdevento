@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:hospitalmoinhosdevento/pages/atendimento/prontoAtendimento.page.dart';
 import 'package:hospitalmoinhosdevento/pages/unidades/unidades.page.dart';
@@ -17,15 +15,13 @@ class InicioPage extends StatelessWidget {
           return Scaffold(
             body: Container(
               color: Colors.white,
-
               child: ListView(
                 children: <Widget>[
                   profileItem(model.idPaciente, model.name),
-
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        formularioEmergencia(context),
+                        formularioEmergencia(context, model.idPaciente),
                         unidades(context),
                         //prontoAtendimento(context)
                       ]
@@ -39,7 +35,7 @@ class InicioPage extends StatelessWidget {
 }
 
 
-Widget formularioEmergencia (BuildContext context){
+Widget formularioEmergencia (BuildContext context, int idPaciente){
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
@@ -51,12 +47,12 @@ Widget formularioEmergencia (BuildContext context){
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EmergenciaPage(showBottomNav: true),
+            builder: (context) => EmergenciaPage(showBottomNav: true, idPergunta: 0,idRespota: 0, idPaciente:idPaciente, dataEnvio:""),
           ),
         );
       },
       ),
-      Text('Emergência')
+      const Text('Emergência')
     ],
   );
 }
@@ -68,7 +64,8 @@ Widget unidades (BuildContext context){
       IconButton(
         icon: const Icon(Icons.business_outlined ),
         tooltip: 'Unidades',
-        iconSize:80,           onPressed: () {
+        iconSize:80,
+        onPressed: () {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -77,7 +74,7 @@ Widget unidades (BuildContext context){
         );
       },
       ),
-      Text('Unidades')
+      const Text('Unidades')
     ],
   );
 }
@@ -98,7 +95,7 @@ Widget prontoAtendimento (BuildContext context){
         );
       },
       ),
-      Text('Pronto Atendimento')
+      const Text('Pronto Atendimento')
     ],
   );
 }
@@ -106,11 +103,11 @@ Widget prontoAtendimento (BuildContext context){
 
 Widget profileItem(int idPaciente, String name) {
   return Container(
-    padding: EdgeInsets.all(10.0),
+    padding: const EdgeInsets.all(10.0),
     child: Center(
       child: Column(
         children: <Widget>[
-          Image.asset("user-picture.png"),
+          Image.asset("assets/images/user-picture.png"),
           Text(name),
           Text(idPaciente.toString())
         ],

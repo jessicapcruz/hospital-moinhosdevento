@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 //Github request class
 class PacienteRequest {
   final int? idUsuario;
-  //final String url = 'http://challenge-fiap-api-paciente.sa-east-1.elasticbeanstalk.com/';
-  final String url = 'http://jsonplaceholder.typicode.com/users/1';
+  final String url = 'http://challengefiapapipaciente-env.eba-gnakevwh.sa-east-1.elasticbeanstalk.com/';
+  //final String url = 'http://jsonplaceholder.typicode.com/users/1';
 
   static String clientId = 'CLIENT_ID'; //enter yout client id
   static String clientSecret = 'CLIENT_SECRET'; // insert your client secret
@@ -16,36 +16,15 @@ class PacienteRequest {
 
   PacienteRequest(this.idUsuario);
 
-  //Fetch a user with the username supplied in the form input
-  Future<http.Response> fetchUser() {
-    return http.get(Uri.parse(url + 'users/' + idUsuario.toString()));
-  }
-  Future<List<Paciente>> fetchPost() async {
-    final response =
-    await http.get(Uri.parse('http://jsonplaceholder.typicode.com/users/1'));
-
-    if (response.statusCode == 200) {
-      final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
-
-      return parsed.map<Paciente>((json) => Paciente.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to load album');
-    }
-  }
-
   Future<Paciente> getPaciente() async {
     final response =
-    await http.get(Uri.parse('http://jsonplaceholder.typicode.com/users/1'));
-    //await http.get(Uri.parse(url + 'paciente/' + idUsuario.toString()));
+    //await http.get(Uri.parse('http://jsonplaceholder.typicode.com/users/1'));
+    await http.get(Uri.parse(url + 'pacientes/' + idUsuario.toString()));
     if (response.statusCode == 200) {
       return Paciente.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load paciente');
     }
-  }
-
-  Future<http.Response> fetchPatients () {
-    return http.get(Uri.parse(url));
   }
 
   Future createPost({required Map body}) async {
@@ -58,4 +37,27 @@ class PacienteRequest {
       return Paciente.fromJson(json.decode(response.body));
     });
   }
+
+  Future<void> updatePaciente(Paciente paciente) async {
+    await http.patch(
+      Uri.parse(url + 'pacientes/' +  idUsuario.toString()),
+      body: json.encode({
+        "nome_completo": paciente.nome_completo,
+        "data_nascimento": paciente.data_nascimento,
+        "nome_mae": paciente.nome_mae,
+        "cpf": paciente.cpf,
+        "endereco": paciente.endereco,
+        "telefone": paciente.telefone,
+        "email": paciente.email
+      }),headers: {
+      "Accept": "application/json",
+      "content-type":"application/json"
+    }
+    ).then((response) {
+      if (response.statusCode < 200 || response.statusCode  > 400 ) {
+        throw new Exception("ocorreu erro ao gravar alteração");
+      }
+    });
+  }
+
 }

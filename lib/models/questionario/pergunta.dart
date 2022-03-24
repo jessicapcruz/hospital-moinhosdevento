@@ -10,8 +10,8 @@ class Pergunta {
   final int perguntaNAO;
   final String perguntaDES;
   final String perguntaTIP;
-  final String perguntaPS1;
-  final String perguntaPS2;
+  final int perguntaPS1;
+  final int perguntaPS2;
   final List<Resposta> respostas;
 
 
@@ -42,8 +42,8 @@ class Pergunta {
       perguntaNAO: json['perguntaNAO'] as int,
       perguntaDES: json['perguntaDES'] as String,
       perguntaTIP: json['perguntaTIP'] as String,
-      perguntaPS1: json['perguntaPS1'] as String,
-      perguntaPS2: json['perguntaPS2'] as String,
+      perguntaPS1: json['perguntaPS1'] as int,
+      perguntaPS2: json['perguntaPS2'] as int,
       respostas: json['respostas'] as List<Resposta>
   );
 

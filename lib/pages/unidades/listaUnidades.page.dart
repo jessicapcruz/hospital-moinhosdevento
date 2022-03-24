@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
-
-import '../home/inicio.page.dart';
-import '../profile/profile.page.dart';
 
 class ListaUnidadesPage  extends StatefulWidget {
+  const ListaUnidadesPage({Key? key}) : super(key: key);
+
 
   @override
   _ListaUnidadesPageState  createState() => _ListaUnidadesPageState ();
 }
-
 
 class _ListaUnidadesPageState extends State<ListaUnidadesPage> {
 
@@ -22,7 +19,6 @@ class _ListaUnidadesPageState extends State<ListaUnidadesPage> {
           children: <Widget>[
             logoItem(),
             unidades(context),
-
         ]
       )
 
@@ -59,7 +55,9 @@ class _ListaUnidadesPageState extends State<ListaUnidadesPage> {
           textAlign: TextAlign.left,),
         Text('(51) 3314-3300(Para informações)',
           textAlign: TextAlign.left,),
-        Text('Av. Antônio Carlos Berta, Shopping Iguatemi - Porto Alegre, 3º andar',
+        Text('Av. Antônio Carlos Berta, Shopping Iguatemi' ,
+          textAlign: TextAlign.left,),
+        Text(' - Porto Alegre, 3º andar',
           textAlign: TextAlign.left,),
         Divider(
           height: 20,
@@ -97,11 +95,11 @@ class _ListaUnidadesPageState extends State<ListaUnidadesPage> {
 
   Widget logoItem() {
     return Container(
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       child: Center(
         child: Column(
           children: <Widget>[
-            Image.asset("logo-interno.png")
+            Image.asset("assets/images/logo-interno.png")
           ],
         ),
       ),

@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 class Paciente {
-  final int?id;
+  final int?paciente_id;
   final String nome_completo;
+  final String ? data_nascimento;
   final String nome_mae;
   final String cpf;
   final String endereco;
@@ -10,8 +11,9 @@ class Paciente {
   final String email;
 
   Paciente({
-    this.id,
+    this.paciente_id,
     required this.nome_completo,
+    this.data_nascimento,
     required this.nome_mae,
     required this.cpf,
     required this.endereco,
@@ -26,8 +28,9 @@ class Paciente {
   String toRawJson() => json.encode(toJson());
 
   factory Paciente.fromJson(Map<String, dynamic> json) => Paciente(
-    id: json['id'] as int,
+    paciente_id: json['paciente_id'] as int,
     nome_completo: json['nome_completo'] as String,
+    data_nascimento: json['data_nascimento'] as String,
     nome_mae: json['nome_mae'] as String,
     cpf: json['cpf'] as String,
     endereco: json['endereco'] as String,
@@ -36,8 +39,9 @@ class Paciente {
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
+    "paciente_id": paciente_id,
     "nome_completo": nome_completo,
+    "data_nascimento":data_nascimento,
     "nome_mae": nome_mae,
     "cpf": cpf,
     "endereco": endereco,
@@ -47,8 +51,9 @@ class Paciente {
 
   Map toMap() {
     var map = new Map();
-    map["id"] = id;
+    map["paciente_id"] = paciente_id;
     map["nome_completo"] = nome_completo;
+    map["data_nascimento"] = data_nascimento;
     map["nome_mae"] = nome_mae;
     map["cpf"] = cpf;
     map["endereco"] = endereco;

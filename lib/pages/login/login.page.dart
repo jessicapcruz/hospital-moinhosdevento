@@ -15,22 +15,22 @@ class LoginPage extends StatelessWidget {
         builder: (BuildContext context, Widget child, MainModel model) {
         return Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 60, left: 40, right: 40),
+            padding: const EdgeInsets.only(top: 60, left: 40, right: 40),
             color: Colors.white,
             child: ListView(
               children: <Widget>[
                 SizedBox(
                   width: 128,
                   height: 128,
-                  child: Image.asset("app-logo.png"),
+                  child: Image.asset("assets/images/app-logo.png"),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   // autofocus: true,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "Usuário",
                     labelStyle: TextStyle(
                       color: Colors.black38,
@@ -38,16 +38,16 @@ class LoginPage extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
                   // autofocus: true,
                   keyboardType: TextInputType.text,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "Senha",
                     labelStyle: TextStyle(
                       color: Colors.black38,
@@ -61,7 +61,7 @@ class LoginPage extends StatelessWidget {
                   height: 40,
                   alignment: Alignment.centerRight,
                   child: FlatButton(
-                    child: Text(
+                    child: const Text(
                       "Recuperar Senha",
                       textAlign: TextAlign.right,
                     ),
@@ -75,13 +75,13 @@ class LoginPage extends StatelessWidget {
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Container(
                   height: 60,
                   alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -99,7 +99,7 @@ class LoginPage extends StatelessWidget {
                     child: FlatButton(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
+                        children: const <Widget>[
                           Text(
                             "Acessar",
                             style: TextStyle(
@@ -124,13 +124,13 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Container(
+                /**Container(
                   height: 40,
                   child: FlatButton(
                     child: Text(
@@ -146,7 +146,7 @@ class LoginPage extends StatelessWidget {
                       );
                     },
                   ),
-                ),
+                ),**/
               ],
             ),
           ),
