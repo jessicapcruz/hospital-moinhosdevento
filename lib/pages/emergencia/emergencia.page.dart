@@ -9,12 +9,13 @@ import '../profile/profile.page.dart';
 
 class EmergenciaPage  extends StatefulWidget {
   //EmergenciaPage({Key? key, required this.showBottomNav, required this.idPaciente, required this.idPergunta, required this.idReposta}) : super(key: key);
-  const EmergenciaPage({required this.showBottomNav, required this.idPergunta, required this.idRespota, required this.idPaciente, required this.dataEnvio, Key? key, }) : super(key: key);
+  const EmergenciaPage({required this.showBottomNav, required this.idPergunta, required this.idRespota, required this.idPaciente, required this.dataEnvio, Key? key, required this.peso, }) : super(key: key);
   final bool showBottomNav;
 
   final int idPergunta;
   final int idRespota;
   final int idPaciente;
+  final int peso;
   final String dataEnvio;
 
   @override
@@ -25,7 +26,7 @@ class EmergenciaPage  extends StatefulWidget {
 class _EmergenciaPageState extends State<EmergenciaPage> {
   final List<Tuple2> _pages = [
     Tuple2('Inicio', InicioPage()),
-    const Tuple2('Emergência', EmergenciaPage(showBottomNav: false, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:"")),
+    const Tuple2('Emergência', EmergenciaPage(showBottomNav: false, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:"", peso:0)),
     Tuple2('Perfil', ProfilePage()),
   ];
   var _scrollController = ScrollController();
@@ -35,6 +36,7 @@ class _EmergenciaPageState extends State<EmergenciaPage> {
   late int _idPaciente = 0;
   late int _idPergunta = 0;
   late int _idReposta = 0;
+  late int _peso = 0;
   late String _dataEnvio = "";
 
 
@@ -49,12 +51,18 @@ class _EmergenciaPageState extends State<EmergenciaPage> {
   set idReposta(int value) {
     _idReposta = value;
   }
+
+  set peso(int value) {
+    _peso = value;
+  }
+
   set dataEnvio(String value) {
     _dataEnvio = value;
   }
   int get idPaciente => _idPaciente;
   int get idPergunta => _idPergunta;
   int get idReposta => _idReposta;
+  int get peso => _peso;
   String get dataEnvio => _dataEnvio;
 
 
@@ -88,7 +96,7 @@ class _EmergenciaPageState extends State<EmergenciaPage> {
             ],
           ),
           body: PageView(
-            children: [QuestionarioPage(idPaciente: idPaciente, idPergunta: idPergunta, idRespota: idReposta, dataEnvio: dataEnvio)],
+            children: [QuestionarioPage(idPaciente: idPaciente, idPergunta: idPergunta, idRespota: idReposta, dataEnvio: dataEnvio, peso: peso)],
           ),
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
@@ -124,7 +132,7 @@ class _EmergenciaPageState extends State<EmergenciaPage> {
         );
       } else {
         return Container(
-            child: QuestionarioPage(idPaciente: idPaciente, idPergunta: idPergunta, idRespota: idReposta, dataEnvio: dataEnvio)
+            child: QuestionarioPage(idPaciente: idPaciente, idPergunta: idPergunta, idRespota: idReposta, dataEnvio: dataEnvio, peso:peso)
         );
       }
     });

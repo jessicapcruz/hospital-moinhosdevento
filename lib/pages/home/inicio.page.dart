@@ -47,7 +47,7 @@ Widget formularioEmergencia (BuildContext context, int idPaciente){
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EmergenciaPage(showBottomNav: true, idPergunta: 0,idRespota: 0, idPaciente:idPaciente, dataEnvio:""),
+            builder: (context) => EmergenciaPage(showBottomNav: true, idPergunta: 0,idRespota: 0, idPaciente:idPaciente, dataEnvio:DateTime.now().toString(), peso: 0),
           ),
         );
       },

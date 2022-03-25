@@ -11,7 +11,7 @@ class HomeScreen  extends StatefulWidget {
 class _HomeScreenState  extends State<HomeScreen> {
   final List<Tuple2> _pages = [
     Tuple2('Inicio', InicioPage()),
-    const Tuple2('Emergência', EmergenciaPage(showBottomNav: false, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:"")),
+    Tuple2('Emergência', EmergenciaPage(showBottomNav: false, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:DateTime.now().toString(), peso: 0)),
     Tuple2('Perfil', ProfilePage()),
   ];
   int _selectedPage = 0;

@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:hospitalmoinhosdevento/models/questionario/resposta.dart';
-
 class Pergunta {
   final int perguntaNID;
   final int perguntaCTR;
@@ -12,7 +10,7 @@ class Pergunta {
   final String perguntaTIP;
   final int perguntaPS1;
   final int perguntaPS2;
-  final List<Resposta> respostas;
+  //final Retorno retorno;
 
 
   Pergunta({
@@ -25,7 +23,7 @@ class Pergunta {
     required this.perguntaTIP,
     required this.perguntaPS1,
     required this.perguntaPS2,
-    required this.respostas
+    //required this.retorno
   });
 
 
@@ -44,7 +42,7 @@ class Pergunta {
       perguntaTIP: json['perguntaTIP'] as String,
       perguntaPS1: json['perguntaPS1'] as int,
       perguntaPS2: json['perguntaPS2'] as int,
-      respostas: json['respostas'] as List<Resposta>
+      //retorno: json['retorno'] as Retorno
   );
 
   Map<String, dynamic> toJson() => {
@@ -57,7 +55,7 @@ class Pergunta {
     "perguntaTIP": perguntaTIP,
     "perguntaPS1": perguntaPS1,
     "perguntaPS2": perguntaPS2,
-    "respostas":respostas
+    //"retorno": retorno
   };
 
   Map toMap() {
@@ -71,7 +69,7 @@ class Pergunta {
     map["perguntaTIP"] = perguntaTIP;
     map["perguntaPS1"] = perguntaPS1;
     map["perguntaPS2"] = perguntaPS2;
-    map["respostas"] = respostas;
+   // map["retorno"] = retorno;
 
     return map;
   }

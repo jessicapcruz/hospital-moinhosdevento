@@ -5,15 +5,16 @@ import 'package:scoped_model/scoped_model.dart';
 import '../../models/questionario/pergunta.dart';
 import '../../models/user/paciente.dart';
 import '../../scoped_models/main.dart';
+import 'emergencia.page.dart';
 
 
 class QuestionarioPage  extends StatefulWidget {
-  const QuestionarioPage({Key? key, required this.idPergunta, required this.idRespota, required this.idPaciente, required this.dataEnvio}) : super(key: key);
+  const QuestionarioPage({Key? key, required this.idPergunta, required this.idRespota, required this.idPaciente, required this.dataEnvio, required this.peso}) : super(key: key);
   final int idPergunta;
   final int idRespota;
   final int idPaciente;
   final String dataEnvio;
-
+  final int peso;
   @override
   _QuestionarioPageState  createState() => _QuestionarioPageState ();
 }
@@ -24,8 +25,9 @@ class _QuestionarioPageState extends State<QuestionarioPage> {
   late int _idPaciente = 0;
   late int _idPergunta = 0;
   late int _idReposta = 0;
+  late double _peso = 0;
   late String _dataEnvio = "";
-
+  int i = 2;
 
   set idPaciente(int value) {
     _idPaciente = value;
@@ -41,16 +43,23 @@ class _QuestionarioPageState extends State<QuestionarioPage> {
   set dataEnvio(String value) {
     _dataEnvio = value;
   }
+
+  set peso(double value) {
+    _peso = value;
+  }
   int get idPaciente => _idPaciente;
   int get idPergunta => _idPergunta;
   int get idReposta => _idReposta;
+  double get peso => _peso;
   String get dataEnvio => _dataEnvio;
-
+  int val = -1;
+  bool _value = false;
   @override
   void initState() {
     super.initState();
     MainModel model = ScopedModel.of(context);
-    pergunta = QuestionarioRequest(model.idPaciente, idPergunta, idReposta, dataEnvio).getPergunta();
+    model.setnQuestao(2);
+    pergunta = QuestionarioRequest(model.idPaciente, idPergunta, idReposta, dataEnvio, peso).getPergunta();
   }
 
   @override
@@ -85,7 +94,39 @@ class _QuestionarioPageState extends State<QuestionarioPage> {
                                           textAlign: TextAlign.left,
                                         ),
                                         Text(snapshot.data!.perguntaSEQ.toString() + " - " + snapshot.data!.perguntaDES),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          snapshot.data!.perguntaTIP.toString() == "MF" ? 'M ' : "Sim",
+                                        ),
 
+                                        Radio(
+                                          value: 1,
+                                          groupValue: val,
+                                          activeColor: Color(0xFF6200EE),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              val = int.parse(value.toString());
+                                            });
+                                          },
+                                        ),
+
+                                        Text(
+                                          snapshot.data!.perguntaTIP.toString() == "MF" ? 'F ' : "Não",
+                                        ),
+                                        Radio(
+                                          value: 2,
+                                          groupValue: val,
+                                          activeColor: Color(0xFF6200EE),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              val = int.parse(value.toString());
+                                            });
+                                          },
+                                        ),
+                                        ],
+                                    ),
                                       ],
                                     ),
                                   ),
@@ -119,11 +160,21 @@ class _QuestionarioPageState extends State<QuestionarioPage> {
                                           ),
                                           textAlign: TextAlign.center,
                                         ),
+
                                         onPressed: () async {
                                               try {
-                                                Pergunta novaPergunta = await QuestionarioRequest(model.idPaciente, snapshot.data!.perguntaSEQ, snapshot.data!.perguntaSEQ, DateTime.now().toString()).
+                                                if (val == 1) {
+                                                  model.setnPeso(double.parse(snapshot.data!.perguntaSIM.toString()));
+                                                } else {
+                                                  model.setnPeso(double.parse(snapshot.data!.perguntaNAO.toString()));
+                                                }
+                                                Future<Pergunta> novaPergunta = QuestionarioRequest(model.idPaciente, model.nQuestao,  model.nQuestao, DateTime.now().toString(), model.nPeso).
                                                 getPergunta();
-                                                QuestionarioPage(idPaciente: idPaciente, idPergunta: novaPergunta.perguntaSEQ, idRespota: novaPergunta.perguntaSEQ, dataEnvio: dataEnvio);
+
+                                                model.incrementanQuestao();
+                                                setState((){
+                                                  this.pergunta = novaPergunta;
+                                                });
                                               } catch (e) {
                                                 alertDialog(context, "Desculpe, ocorreu um erro ao enviar sua resposta!", " Por favor, tente novamente mais tarde.");
                                               }
