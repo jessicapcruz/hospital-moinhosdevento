@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:hospitalmoinhosdevento/models/questionario/resposta.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonSerializable(explicitToJson: true)

@@ -10,7 +10,6 @@ class Pergunta {
   final String perguntaTIP;
   final double perguntaPS1;
   final double perguntaPS2;
-  //final Retorno retorno;
 
 
   Pergunta({
@@ -23,7 +22,6 @@ class Pergunta {
     required this.perguntaTIP,
     required this.perguntaPS1,
     required this.perguntaPS2,
-    //required this.retorno
   });
 
 
@@ -42,7 +40,6 @@ class Pergunta {
       perguntaTIP: json['perguntaTIP'] as String,
       perguntaPS1: json['perguntaPS1'] as double,
       perguntaPS2: json['perguntaPS2'] as double,
-      //retorno: json['retorno'] as Retorno
   );
 
   Map<String, dynamic> toJson() => {
@@ -55,7 +52,6 @@ class Pergunta {
     "perguntaTIP": perguntaTIP,
     "perguntaPS1": perguntaPS1,
     "perguntaPS2": perguntaPS2,
-    //"retorno": retorno
   };
 
   Map toMap() {
@@ -69,7 +65,6 @@ class Pergunta {
     map["perguntaTIP"] = perguntaTIP;
     map["perguntaPS1"] = perguntaPS1;
     map["perguntaPS2"] = perguntaPS2;
-   // map["retorno"] = retorno;
 
     return map;
   }
