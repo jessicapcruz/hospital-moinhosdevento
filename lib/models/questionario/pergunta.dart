@@ -8,8 +8,8 @@ class Pergunta {
   final int perguntaNAO;
   final String perguntaDES;
   final String perguntaTIP;
-  final int perguntaPS1;
-  final int perguntaPS2;
+  final double perguntaPS1;
+  final double perguntaPS2;
   //final Retorno retorno;
 
 
@@ -40,8 +40,8 @@ class Pergunta {
       perguntaNAO: json['perguntaNAO'] as int,
       perguntaDES: json['perguntaDES'] as String,
       perguntaTIP: json['perguntaTIP'] as String,
-      perguntaPS1: json['perguntaPS1'] as int,
-      perguntaPS2: json['perguntaPS2'] as int,
+      perguntaPS1: json['perguntaPS1'] as double,
+      perguntaPS2: json['perguntaPS2'] as double,
       //retorno: json['retorno'] as Retorno
   );
 

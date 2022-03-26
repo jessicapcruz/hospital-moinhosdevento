@@ -4,18 +4,19 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../scoped_models/main.dart';
+import '../home/home.page.dart';
 import '../home/inicio.page.dart';
 import '../profile/profile.page.dart';
+import '../unidades/unidades.page.dart';
 
 class EmergenciaPage  extends StatefulWidget {
-  //EmergenciaPage({Key? key, required this.showBottomNav, required this.idPaciente, required this.idPergunta, required this.idReposta}) : super(key: key);
   const EmergenciaPage({required this.showBottomNav, required this.idPergunta, required this.idRespota, required this.idPaciente, required this.dataEnvio, Key? key, required this.peso, }) : super(key: key);
   final bool showBottomNav;
 
   final int idPergunta;
   final int idRespota;
   final int idPaciente;
-  final int peso;
+  final double peso;
   final String dataEnvio;
 
   @override
@@ -26,17 +27,17 @@ class EmergenciaPage  extends StatefulWidget {
 class _EmergenciaPageState extends State<EmergenciaPage> {
   final List<Tuple2> _pages = [
     Tuple2('Inicio', InicioPage()),
-    const Tuple2('Emergência', EmergenciaPage(showBottomNav: false, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:"", peso:0)),
-    Tuple2('Perfil', ProfilePage()),
+    Tuple2('Emergência', EmergenciaPage(showBottomNav: false, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:DateTime.now().toString(), peso:0)),
+    Tuple2('Perfil', ProfilePage(showBottomNav: true)),
   ];
   var _scrollController = ScrollController();
 
-  int _selectedPage = 0;
+  int _selectedPage = 1;
   PageController _pageController = PageController();
   late int _idPaciente = 0;
   late int _idPergunta = 0;
   late int _idReposta = 0;
-  late int _peso = 0;
+  late double _peso = 0;
   late String _dataEnvio = "";
 
 
@@ -52,7 +53,7 @@ class _EmergenciaPageState extends State<EmergenciaPage> {
     _idReposta = value;
   }
 
-  set peso(int value) {
+  set peso(double value) {
     _peso = value;
   }
 
@@ -62,16 +63,10 @@ class _EmergenciaPageState extends State<EmergenciaPage> {
   int get idPaciente => _idPaciente;
   int get idPergunta => _idPergunta;
   int get idReposta => _idReposta;
-  int get peso => _peso;
+  double get peso => _peso;
   String get dataEnvio => _dataEnvio;
 
 
-  @override
-  void initState() {
-    super.initState();
-    print(_pageController.hasClients);
-   // _pageController.hasClients ? _pageController.page!(1) : _pageController.initialPage;
-  }
   @override
   Widget build(BuildContext context) {
 
@@ -121,12 +116,26 @@ class _EmergenciaPageState extends State<EmergenciaPage> {
             selectedItemColor: Colors.white,
             backgroundColor: Colors.blue,
             onTap: (index) {
-              setState(() {
-                _selectedPage = index;
-                _pageController.animateToPage(_selectedPage,
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.linear);
-              });
+              index == 0 ?
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeScreen(),
+                ),
+              ): index == 1 ?
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EmergenciaPage(showBottomNav: true, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:DateTime.now().toString(), peso:0),
+                  ),
+                ) :
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfilePage(showBottomNav: true),
+                ),
+              )
+;
             },
           ),
         );

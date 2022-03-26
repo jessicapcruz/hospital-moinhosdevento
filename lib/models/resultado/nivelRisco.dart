@@ -1,22 +1,20 @@
 import 'dart:convert';
 
 import 'package:hospitalmoinhosdevento/models/questionario/resposta.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import '../retorno/retorno.dart';
-
+@JsonSerializable(explicitToJson: true)
 class NivelRisco {
   final int faixaDe;
   final int faixaAte;
   final int tempoEspera;
   final String descricao;
-  final Retorno retorno;
 
   NivelRisco({
     required this.faixaDe,
     required this.faixaAte,
     required this.tempoEspera,
     required this.descricao,
-    required this.retorno,
   });
 
 
@@ -30,7 +28,6 @@ class NivelRisco {
       faixaAte: json['faixaAte'] as int,
       tempoEspera: json['tempoEspera'] as int,
       descricao: json['descricao'] as String,
-      retorno: json['retorno'] as Retorno,
   );
 
   Map<String, dynamic> toJson() => {
@@ -38,7 +35,6 @@ class NivelRisco {
     "faixaAte": faixaAte,
     "tempoEspera": tempoEspera,
     "descricao": descricao,
-    "retorno": retorno,
   };
 
   Map toMap() {
@@ -47,7 +43,6 @@ class NivelRisco {
     map["faixaAte"] = faixaAte;
     map["tempoEspera"] = tempoEspera;
     map["descricao"] = descricao;
-    map["retorno"] = retorno;
     return map;
   }
 }

@@ -5,8 +5,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../../models/questionario/pergunta.dart';
 import '../../models/user/paciente.dart';
 import '../../scoped_models/main.dart';
-import 'emergencia.page.dart';
-
+import '../resultado/resultado.page.dart';
 
 class QuestionarioPage  extends StatefulWidget {
   const QuestionarioPage({Key? key, required this.idPergunta, required this.idRespota, required this.idPaciente, required this.dataEnvio, required this.peso}) : super(key: key);
@@ -14,7 +13,7 @@ class QuestionarioPage  extends StatefulWidget {
   final int idRespota;
   final int idPaciente;
   final String dataEnvio;
-  final int peso;
+  final double peso;
   @override
   _QuestionarioPageState  createState() => _QuestionarioPageState ();
 }
@@ -59,7 +58,7 @@ class _QuestionarioPageState extends State<QuestionarioPage> {
     super.initState();
     MainModel model = ScopedModel.of(context);
     model.setnQuestao(2);
-    pergunta = QuestionarioRequest(model.idPaciente, idPergunta, idReposta, dataEnvio, peso).getPergunta();
+    pergunta = QuestionarioRequest(model.idPaciente, idPergunta, idReposta, peso).getPergunta();
   }
 
   @override
@@ -93,7 +92,7 @@ class _QuestionarioPageState extends State<QuestionarioPage> {
                                         '* Este questionario tem o objetivo de avaliar o diagnostico prévio, com base em seus sintomas e inclui-lo na fila de atendimento.',
                                           textAlign: TextAlign.left,
                                         ),
-                                        Text(snapshot.data!.perguntaSEQ.toString() + " - " + snapshot.data!.perguntaDES),
+                                        Text((model.nQuestao-1).toString() + " - " + snapshot.data!.perguntaDES),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
@@ -162,22 +161,36 @@ class _QuestionarioPageState extends State<QuestionarioPage> {
                                         ),
 
                                         onPressed: () async {
-                                              try {
-                                                if (val == 1) {
-                                                  model.setnPeso(double.parse(snapshot.data!.perguntaSIM.toString()));
-                                                } else {
-                                                  model.setnPeso(double.parse(snapshot.data!.perguntaNAO.toString()));
-                                                }
-                                                Future<Pergunta> novaPergunta = QuestionarioRequest(model.idPaciente, model.nQuestao,  model.nQuestao, DateTime.now().toString(), model.nPeso).
-                                                getPergunta();
 
-                                                model.incrementanQuestao();
-                                                setState((){
-                                                  this.pergunta = novaPergunta;
-                                                });
-                                              } catch (e) {
-                                                alertDialog(context, "Desculpe, ocorreu um erro ao enviar sua resposta!", " Por favor, tente novamente mais tarde.");
+                                          if (val > -1) {
+                                            try {
+                                              if (val == 1) {
+                                                model.setnPeso(double.parse(
+                                                    snapshot.data!.perguntaSIM
+                                                        .toString()));
+                                              } else {
+                                                model.setnPeso(double.parse(
+                                                    snapshot.data!.perguntaNAO
+                                                        .toString()));
                                               }
+                                              Future<
+                                                  Pergunta> novaPergunta = QuestionarioRequest(
+                                                  model.idPaciente,
+                                                  model.nQuestao,
+                                                  model.nQuestao,
+                                                  model.nPeso).
+                                              getPergunta();
+
+                                              model.incrementanQuestao();
+                                              setState(() {
+                                                this.pergunta = novaPergunta;
+                                              });
+                                            } catch (e) {
+                                              alertDialog(context,
+                                                  "Desculpe, ocorreu um erro ao enviar sua resposta!",
+                                                  " Por favor, tente novamente mais tarde.");
+                                            }
+                                          }
                                           },
                                       ),),
                                   ),
@@ -207,41 +220,60 @@ class _QuestionarioPageState extends State<QuestionarioPage> {
                     );
                   }
                 } else if (snapshot.hasError) {
-                    return AlertDialog(
-                      title: const Text('Falha ao carregar as informações'),
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: <Widget>[
-                            Text('${snapshot.error}'),
-                            Text('Por favor, tente novamente mais tarde.'),
-                          ],
+                    if (snapshot.error.toString() == 'Exception: Failed to load pergunta') {
+                      return AlertDialog(
+                        title: const Text('Obrigada!'),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: const <Widget>[
+                              Text('Por responder o questionario.'),
+                              Text(
+                                  'Você sera redirecionado para a fila de atendimento.'),
+                            ],
+                          ),
                         ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: const Text('OK'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      resultadoPage(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    } else {
+                      return AlertDialog(
+                        title: const Text('Falha ao carregar as informações'),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: <Widget>[
+                              Text('${snapshot.error}'),
+                              const Text('Por favor, tente novamente mais tarde.'),
+                            ],
+                          ),
                         ),
-                      ],
-                    );
-                  }
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    }
+                    }
                   return const CircularProgressIndicator();
                 }
               )
               )
           );
-          /**
-          return Container(
-            padding: EdgeInsets.all(5),
-            child: const Text(
-              '* Este questionario tem o objetivo de avaliar o diagnostico prévio, com base em seus sintomas e inclui-lo na fila de atendimento.',
-              textAlign: TextAlign.left,
-            ),
-            
-            
-          );*/
     });
   }
 

@@ -18,4 +18,21 @@ void main() {
 
     expect(main.name, 'teste');
   });
+
+  test('Atualiza Questao', () {
+    final main = MainModel();
+
+    main.setnQuestao(2);
+
+    expect(main.nQuestao, 2);
+  });
+
+  test('Atualiza Peso', () {
+    final main = MainModel();
+
+    main.setnPeso(2);
+
+    expect(main.nPeso, 2);
+  });
+
 }

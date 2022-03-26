@@ -21,6 +21,7 @@ class _editProfilePageState extends State<editProfilePage> {
   int _selectedIndex = 0;
   String enderecoNovo = "";
   String emailNovo = "";
+  String telefoneNovo = "";
 
 
   @override
@@ -32,14 +33,17 @@ class _editProfilePageState extends State<editProfilePage> {
 
   _getContent(){
     if (widget.dados == null){
-
-      debugPrint('null dados ');
       return new Container();
     }
 
     return ScopedModelDescendant<MainModel>(
         builder: (BuildContext context, Widget child, MainModel model) {
-      return Container(
+
+          return Scaffold(
+              resizeToAvoidBottomInset: false,
+          body: SingleChildScrollView (
+
+        child: Container(
           padding: EdgeInsets.only(top: 60, left: 40, right: 40),
           color: Colors.white,
           child: Column(
@@ -66,6 +70,15 @@ class _editProfilePageState extends State<editProfilePage> {
               TextField(
                 onChanged: (text) {
                   emailNovo = text;
+                },
+              ),
+              const ListTile(
+                leading: Icon(Icons.create_outlined),
+                subtitle: Text('Novo telefone: '),
+              ),
+              TextField(
+                onChanged: (text) {
+                  telefoneNovo = text;
                 },
               ),
               const SizedBox(height: 10),
@@ -105,9 +118,9 @@ class _editProfilePageState extends State<editProfilePage> {
                             data_nascimento:data.data_nascimento,
                             nome_mae:data.nome_mae ,
                             cpf:data.cpf ,
-                            endereco:enderecoNovo ,
-                            telefone:data.telefone ,
-                            email:emailNovo
+                            endereco:enderecoNovo != ""? enderecoNovo: data.endereco ,
+                            telefone:telefoneNovo != ""? telefoneNovo: data.telefone ,
+                            email:emailNovo != ""? emailNovo: data.email
                             );
                          try {
                            await PacienteRequest(model.idPaciente).updatePaciente(
@@ -135,7 +148,7 @@ class _editProfilePageState extends State<editProfilePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ProfilePage(),
+                            builder: (context) => ProfilePage(showBottomNav: false),
                           ),
                         );
                       }
@@ -143,7 +156,9 @@ class _editProfilePageState extends State<editProfilePage> {
               ),
             ],
           )
-      );
+      )
+      )
+          );
     });
   }
 

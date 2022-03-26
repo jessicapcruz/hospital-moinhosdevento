@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:json_annotation/json_annotation.dart';
+
+@JsonSerializable(explicitToJson: true)
 class Retorno {
   final int codigo;
   final String mensagem;

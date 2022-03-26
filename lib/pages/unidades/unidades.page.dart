@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import '../emergencia/emergencia.page.dart';
+import '../home/home.page.dart';
 import '../home/inicio.page.dart';
 import '../profile/profile.page.dart';
 import 'listaUnidades.page.dart';
@@ -16,7 +17,7 @@ class _UnidadesPageState extends State<UnidadesPage> {
   final List<Tuple2> _pages = [
     Tuple2('Inicio', InicioPage()),
     Tuple2('Emergência', EmergenciaPage(showBottomNav: false, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:DateTime.now().toString(), peso:0)),
-    Tuple2('Perfil', ProfilePage()),
+    Tuple2('Perfil', ProfilePage(showBottomNav: false)),
   ];
   int _selectedPage = 0;
   PageController _pageController = PageController();
@@ -66,11 +67,25 @@ class _UnidadesPageState extends State<UnidadesPage> {
         selectedItemColor: Colors.white,
         backgroundColor: Colors.blue,
         onTap: (index) {
-          setState(() {
-            _selectedPage = index;
-            _pageController.animateToPage(_selectedPage,
-                duration: const Duration(milliseconds: 300), curve: Curves.linear);
-          });
+          index == 0 ?
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ),
+          ): index == 1 ?
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EmergenciaPage(showBottomNav: false, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:DateTime.now().toString(), peso:0),
+            ),
+          ) :
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfilePage(showBottomNav: true),
+            ),
+          );
         },
       ),
     );

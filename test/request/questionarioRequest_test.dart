@@ -14,7 +14,7 @@ void main() {
           final client = MockClient((request) async {
             return Response('', 404);
           });
-          final questionarioClient = QuestionarioRequest(0,0,0, "", double.parse("0"));
+          final questionarioClient = QuestionarioRequest(0,0,0, double.parse("0"));
 
           final result = await questionarioClient.getPergunta();
           // Assert
