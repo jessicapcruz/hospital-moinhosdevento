@@ -77,7 +77,7 @@ class _UnidadesPageState extends State<UnidadesPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => EmergenciaPage(showBottomNav: false, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:DateTime.now().toString(), peso:0),
+              builder: (context) => EmergenciaPage(showBottomNav: true, idPergunta: 0,idRespota: 0, idPaciente:0, dataEnvio:DateTime.now().toString(), peso:0),
             ),
           ) :
           Navigator.push(

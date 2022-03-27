@@ -58,7 +58,7 @@ class QuestionarioRequest {
     );
 
     if (response.statusCode == 200) {
-      return Pergunta.fromJson(jsonDecode(response.body));
+      return Pergunta.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
       throw Exception('Failed to load pergunta');
     }
@@ -92,7 +92,7 @@ class QuestionarioRequest {
       if (statusCode < 200 || statusCode > 400 || json == null) {
         throw new Exception("Error while fetching data");
       }
-      return Paciente.fromJson(json.decode(response.body));
+      return Paciente.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     });
   }
 }

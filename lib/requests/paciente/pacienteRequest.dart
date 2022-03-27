@@ -21,7 +21,7 @@ class PacienteRequest {
     //await http.get(Uri.parse('http://jsonplaceholder.typicode.com/users/1'));
     await http.get(Uri.parse(url + 'pacientes/' + idUsuario.toString()));
     if (response.statusCode == 200) {
-      return Paciente.fromJson(jsonDecode(response.body));
+      return Paciente.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
       throw Exception('Failed to load paciente');
     }

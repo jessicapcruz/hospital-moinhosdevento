@@ -24,6 +24,7 @@ class _HomeScreenState  extends State<HomeScreen> {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
+          title: _selectedPage== 0? Text('Inicio') : _selectedPage== 1 ? Text('Questonario de emergência') : Text('Perfil'),
           actions: <Widget>[
             Container(
               width: 60,
